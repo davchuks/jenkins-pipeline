@@ -24,13 +24,13 @@ pipeline {
             }
              post {
                 success {
-                    mail(subject: 'Unit & Integration Tests Success - $JOB_NAME', 
+                    emailext(subject: 'Unit & Integration Tests Success - $JOB_NAME', 
                                 body: 'Unit & Integration Tests completed successfully!See build logs for details.',
                                 attachLog: "${currentBuild.rawBuild.logFilePath}",  // if getLogFile() provides the path
                                 to: 'davidochuks@gmail.com')
                 }
                 failure {
-                    mail(subject: 'Unit & Integration Tests Failed - $JOB_NAME', 
+                    emailext(subject: 'Unit & Integration Tests Failed - $JOB_NAME', 
                                 body: 'Unit & Integration Tests failed! See build logs for details. $BUILD_LOG',
                                 attachLog: "${currentBuild.rawBuild.logFilePath}",  // if getLogFile() provides the path
                                // attachment: 'build.log',  // Replace with actual log file path
@@ -53,13 +53,13 @@ pipeline {
             }
             post {
                 success {
-                    mail(subject: 'Security Scan Success - $JOB_NAME', 
+                    emailext(subject: 'Security Scan Success - $JOB_NAME', 
                                 body: 'Security scan completed successfully!See build logs for details.', 
                                 attachLog: "${currentBuild.rawBuild.logFilePath}",  // Replace with actual log file path
                                 to: 'davidochuks@gmail.com')
                 }
                 failure {
-                    mail(subject: 'Security Scan Failed - $JOB_NAME', 
+                    emailext(subject: 'Security Scan Failed - $JOB_NAME', 
                                 body: 'Security scan failed! See build logs for details.', 
                                 attachLog: "${currentBuild.rawBuild.logFilePath}",  // Replace with actual log file path
                                 to: 'davidochuks@gmail.com')
@@ -80,13 +80,13 @@ pipeline {
                 }
                 post {
                 success {
-                    mail(subject: 'Integration Tests on Staging Success - $JOB_NAME', 
+                    emailext(subject: 'Integration Tests on Staging Success - $JOB_NAME', 
                                 body: 'Integration Tests on Staging completed successfully!See build logs for details.',
                                 attachLog: "${currentBuild.rawBuild.logFilePath}",  // if getLogFile() provides the path
                                 to: 'davidochuks@gmail.com')
                 }
                 failure {
-                    mail(subject: 'Integration Tests on Staging Failed - $JOB_NAME', 
+                    emailext(subject: 'Integration Tests on Staging Failed - $JOB_NAME', 
                                 body: 'Integration Tests on Staging See build logs for details. $BUILD_LOG',
                                 attachLog: "${currentBuild.rawBuild.logFilePath}",  // if getLogFile() provides the path
                                // attachment: 'build.log',  // Replace with actual log file path
