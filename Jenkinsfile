@@ -54,7 +54,7 @@ pipeline {
                 success {
                     emailext subject: 'Security Scan Success - ${JOB_NAME}',
                                 body: 'Security scan completed successfully! See build logs for details.',
-                                attachLog: "${currentBuild.rawBuild.logFilePath}"",
+                                attachLog: "${currentBuild.rawBuild.logFilePath}",
                                 to: 'davidochuks@gmail.com'
                 }
                 failure {
