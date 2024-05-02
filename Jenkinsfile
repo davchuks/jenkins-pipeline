@@ -8,19 +8,18 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script {
+
                     echo 'Compiling and packaging code using Maven.'
-                }
+                
             }
         }
         stage('Unit and Integration Tests') {
             steps {
-                script {
                     echo 'Running unit tests with JUnit  and integration tests with Selenium .'
                     echo "Example: sh 'mvn test'"
 
                     echo "Running integration tests with Selenium ."
-                }
+                
             }
              post {
                 success {
@@ -40,16 +39,16 @@ pipeline {
         }
         stage('Code Analysis') {
             steps {
-                script {
+         
                     echo 'Analyzing code quality with SonarQube.'
-                }
+                
             }
         }
         stage('Security Scan') {
             steps {
-                script {
+           
                     echo 'Scanning for vulnerabilities with SAST scanner (e.g., OWASP ZAP).'
-                }
+                
             }
             post {
                 success {
@@ -68,16 +67,16 @@ pipeline {
         }
         stage('Deploy to Staging') {
             steps {
-                script {
+                
                     echo 'Deploying application to staging environment using Amazon EC2 Plugin:( Manages deployments on AWS EC2 instances) '
                 }
-            }
+            
         }
         stage('Integration Tests on Staging') {
             steps {
-                script {
+
                     echo 'Running integration tests on staging environment using  VectorCAST/C++.'
-                }
+
                 post {
                     success {
                         mail subject: "Integration Tests on Staging Success - ${JOB_NAME}",
@@ -96,9 +95,9 @@ pipeline {
         }
         stage('Deploy to Production') {
             steps {
-                script {
+ 
                     echo 'Deploying application to production environment AWS EC2.'
-                }
+
             }
         }
     }
