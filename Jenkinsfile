@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-        pollSCM( '2M' ) // Check for changes every 2 minutes
+        pollSCM('*/2 * * * *') // Check for changes every 2 minutes
     }
 
     stages {
@@ -24,24 +24,23 @@ pipeline {
             }
              post {
                 success {
-                    emailaction(subject: 'Unit & Integration Tests Success - $JOB_NAME', 
-                                body: 'Unit & Integration Tests completed successfully!See build logs for details.',
-                                attachment: "${env.BUILD_LOG}",  // if getLogFile() provides the path
-                                to: 'davidochuks@gmail.com')
+                    emailext subject: "Unit & Integration Tests Success - ${JOB_NAME}",
+                                body: 'Unit & Integration Tests completed successfully! See build logs for details.',
+                                attachment: "${env.BUILD_LOG}",
+                                to: 'davidochuks@gmail.com'
                 }
                 failure {
-                    emailaction(subject: 'Unit & Integration Tests Failed - $JOB_NAME', 
-                                body: 'Unit & Integration Tests failed! See build logs for details. $BUILD_LOG',
-                                attachment: "${env.BUILD_LOG}",  // if getLogFile() provides the path
-                               // attachment: 'build.log',  // Replace with actual log file path
-                                to: 'davidochuks@gmail.com')
+                    emailext subject: "Unit & Integration Tests Failed - ${JOB_NAME}",
+                                body: 'Unit & Integration Tests failed! See build logs for details. ${BUILD_LOG}',
+                                attachment: "${env.BUILD_LOG}",
+                                to: 'davidochuks@gmail.com'
                 }
             }
         }
         stage('Code Analysis') {
             steps {
                 script {
-                    echo 'Analyzing code quality with SonarQube .'
+                    echo 'Analyzing code quality with SonarQube.'
                 }
             }
         }
@@ -53,16 +52,16 @@ pipeline {
             }
             post {
                 success {
-                    emailaction(subject: 'Security Scan Success - $JOB_NAME', 
-                                body: 'Security scan completed successfully!See build logs for details.', 
-                                attachment: "${currentBuild.rawBuild.logFilePath}",  // Replace with actual log file path
-                                to: 'davidochuks@gmail.com')
+                    emailext subject: "Security Scan Success - ${JOB_NAME}",
+                                body: 'Security scan completed successfully! See build logs for details.',
+                                attachment: "${currentBuild.rawBuild.logFilePath}",
+                                to: 'davidochuks@gmail.com'
                 }
                 failure {
-                    emailaction(subject: 'Security Scan Failed - $JOB_NAME', 
-                                body: 'Security scan failed! See build logs for details.', 
-                                attachment: "${currentBuild.rawBuild.logFilePath}",  // Replace with actual log file path
-                                to: 'davidochuks@gmail.com')
+                    emailext subject: "Security Scan Failed - ${JOB_NAME}",
+                                body: 'Security scan failed! See build logs for details.',
+                                attachment: "${currentBuild.rawBuild.logFilePath}",
+                                to: 'davidochuks@gmail.com'
                 }
             }
         }
@@ -79,26 +78,25 @@ pipeline {
                     echo 'Running integration tests on staging environment using  VectorCAST/C++.'
                 }
                 post {
-                success {
-                    emailaction(subject: 'Integration Tests on Staging Success - $JOB_NAME', 
-                                body: 'Integration Tests on Staging completed successfully!See build logs for details.',
-                                attachment: "${env.BUILD_LOG}",  // if getLogFile() provides the path
-                                to: 'davidochuks@gmail.com')
+                    success {
+                        emailext subject: "Integration Tests on Staging Success - ${JOB_NAME}",
+                                    body: 'Integration Tests on Staging completed successfully! See build logs for details.',
+                                    attachment: "${env.BUILD_LOG}",
+                                    to: 'davidochuks@gmail.com'
+                    }
+                    failure {
+                        emailext subject: "Integration Tests on Staging Failed - ${JOB_NAME}",
+                                    body: 'Integration Tests on Staging failed! See build logs for details. ${BUILD_LOG}',
+                                    attachment: "${env.BUILD_LOG}",
+                                    to: 'davidochuks@gmail.com'
+                    }
                 }
-                failure {
-                    emailaction(subject: 'Integration Tests on Staging Failed - $JOB_NAME', 
-                                body: 'Integration Tests on Staging See build logs for details. $BUILD_LOG',
-                                attachment: "${env.BUILD_LOG}",  // if getLogFile() provides the path
-                               // attachment: 'build.log',  // Replace with actual log file path
-                                to: 'davidochuks@gmail.com')
-                }
-            }
             }
         }
         stage('Deploy to Production') {
             steps {
                 script {
-                    echo 'Deploying application to production environment  AWS EC2.'
+                    echo 'Deploying application to production environment AWS EC2.'
                 }
             }
         }
