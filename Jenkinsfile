@@ -23,16 +23,16 @@ pipeline {
             }
              post {
                 success {
-                    emailext subject: "Unit & Integration Tests Success - ${JOB_NAME}",
+                    emailext subject: 'Unit & Integration Tests Success - $JOB_NAME',
                                 body: 'Unit & Integration Tests completed successfully! See build logs for details.',
-                                attachLog: "${env.BUILD_LOG}",
+                                attachLog: "${currentBuild.rawBuild.logFilePath}",
                                 to: 'davidochuks@gmail.com'
                 }
                  
                 failure {
-                    emailext subject: "Unit & Integration Tests Failed - ${JOB_NAME}",
+                    emailext subject: 'Unit & Integration Tests Failed - ${JOB_NAME}',
                                 body: 'Unit & Integration Tests failed! See build logs for details. ${BUILD_LOG}',
-                                attachLog: "${env.BUILD_LOG}",
+                                attachLog: "${currentBuild.rawBuild.logFilePath}",
                                 to: 'davidochuks@gmail.com'
                 }
             }
@@ -52,13 +52,13 @@ pipeline {
             }
             post {
                 success {
-                    emailext subject: "Security Scan Success - ${JOB_NAME}",
+                    emailext subject: 'Security Scan Success - ${JOB_NAME}',
                                 body: 'Security scan completed successfully! See build logs for details.',
-                                attachLog: "${currentBuild.rawBuild.logFilePath}",
+                                attachLog: "${currentBuild.rawBuild.logFilePath}"",
                                 to: 'davidochuks@gmail.com'
                 }
                 failure {
-                    emailext subject: "Security Scan Failed - ${JOB_NAME}",
+                    emailext subject: 'Security Scan Failed - ${JOB_NAME}',
                                 body: 'Security scan failed! See build logs for details.',
                                 attachLog: "${currentBuild.rawBuild.logFilePath}",
                                 to: 'davidochuks@gmail.com'
@@ -79,15 +79,15 @@ pipeline {
 
                 post {
                     success {
-                        emailext subject: "Integration Tests on Staging Success - ${JOB_NAME}",
+                        emailext subject: 'Integration Tests on Staging Success - ${JOB_NAME}',
                                     body: 'Integration Tests on Staging completed successfully! See build logs for details.',
-                                    attachLog: "${env.BUILD_LOG}",
+                                    attachLog: "${currentBuild.rawBuild.logFilePath}",
                                     to: 'davidochuks@gmail.com'
                     }
                     failure {
-                        emailext subject: "Integration Tests on Staging Failed - ${JOB_NAME}",
+                        emailext subject: 'Integration Tests on Staging Failed - ${JOB_NAME}',
                                     body: 'Integration Tests on Staging failed! See build logs for details. ${BUILD_LOG}',
-                                    attachLog: "${env.BUILD_LOG}",
+                                    attachLog: "${currentBuild.rawBuild.logFilePath}",
                                     to: 'davidochuks@gmail.com'
                     }
                 }
