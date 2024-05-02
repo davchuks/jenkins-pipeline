@@ -24,13 +24,14 @@ pipeline {
             }
              post {
                 success {
-                    Mail subject: "Unit & Integration Tests Success - ${JOB_NAME}",
+                    mail subject: "Unit & Integration Tests Success - ${JOB_NAME}",
                                 body: 'Unit & Integration Tests completed successfully! See build logs for details.',
                                 attachLog: "${env.BUILD_LOG}",
                                 to: 'davidochuks@gmail.com'
                 }
+                 
                 failure {
-                    Mail subject: "Unit & Integration Tests Failed - ${JOB_NAME}",
+                    mail subject: "Unit & Integration Tests Failed - ${JOB_NAME}",
                                 body: 'Unit & Integration Tests failed! See build logs for details. ${BUILD_LOG}',
                                 attachLog: "${env.BUILD_LOG}",
                                 to: 'davidochuks@gmail.com'
@@ -52,13 +53,13 @@ pipeline {
             }
             post {
                 success {
-                    Mail subject: "Security Scan Success - ${JOB_NAME}",
+                    mail subject: "Security Scan Success - ${JOB_NAME}",
                                 body: 'Security scan completed successfully! See build logs for details.',
                                 attachLog: "${currentBuild.rawBuild.logFilePath}",
                                 to: 'davidochuks@gmail.com'
                 }
                 failure {
-                    Mail subject: "Security Scan Failed - ${JOB_NAME}",
+                    mail subject: "Security Scan Failed - ${JOB_NAME}",
                                 body: 'Security scan failed! See build logs for details.',
                                 attachLog: "${currentBuild.rawBuild.logFilePath}",
                                 to: 'davidochuks@gmail.com'
@@ -79,13 +80,13 @@ pipeline {
                 }
                 post {
                     success {
-                        Mail subject: "Integration Tests on Staging Success - ${JOB_NAME}",
+                        mail subject: "Integration Tests on Staging Success - ${JOB_NAME}",
                                     body: 'Integration Tests on Staging completed successfully! See build logs for details.',
                                     attachLog: "${env.BUILD_LOG}",
                                     to: 'davidochuks@gmail.com'
                     }
                     failure {
-                        Mail subject: "Integration Tests on Staging Failed - ${JOB_NAME}",
+                        mail subject: "Integration Tests on Staging Failed - ${JOB_NAME}",
                                     body: 'Integration Tests on Staging failed! See build logs for details. ${BUILD_LOG}',
                                     attachLog: "${env.BUILD_LOG}",
                                     to: 'davidochuks@gmail.com'
