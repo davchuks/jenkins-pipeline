@@ -23,7 +23,7 @@ pipeline {
             }
              post {
                 success {
-                    emailext subject: 'Unit & Integration Tests Success - $JOB_NAME', 
+                    emailext subject: 'Unit & Integration Tests Success.. - $JOB_NAME', 
                                 body: 'Unit & Integration Tests completed successfully!See build logs for details.',
                                 attachLog: true,  // if getLogFile() provides the path
                                 to: 'davidochuks@gmail.com'
