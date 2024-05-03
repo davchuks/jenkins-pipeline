@@ -88,7 +88,7 @@ pipeline {
                 failure {
                     emailext subject: "Integration Tests on Staging Failed - ${JOB_NAME}",
                               body: "Integration Tests on Staging failed! See build logs for details.",
-                              attachLog: true",
+                              attachLog: true,
                               to: "davidochuks@gmail.com"
                 }
             }
