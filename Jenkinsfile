@@ -78,27 +78,25 @@ pipeline {
                 script {
                     echo 'Running integration tests on staging environment using  VectorCAST/C++.'
                 }
+            }
                 post {
                 success {
-                    emailext subject: 'Integration Tests on Staging Success - $JOB_NAME', 
-                                body: 'Integration Tests on Staging completed successfully!See build logs for details.',
-                              //  attachLog: "${currentBuild.rawBuild.logFilePath}",  // if getLogFile() provides the path
-                                to: 'davidochuks@gmail.com'
+                    emailext subject: "Integration Tests on Staging Success - ${JOB_NAME}",
+                              body: "Integration Tests on Staging completed successfully! See build logs for details.",
+                              to: "davidochuks@gmail.com"
                 }
                 failure {
-                    emailext subject: 'Integration Tests on Staging Failed - $JOB_NAME', 
-                                body: 'Integration Tests on Staging See build logs for details. $BUILD_LOG',
-                                attachLog: "${currentBuild.rawBuild.logFilePath}",  // if getLogFile() provides the path
-                               // attachment: 'build.log',  // Replace with actual log file path
-                                to: 'davidochuks@gmail.com'
+                    emailext subject: "Integration Tests on Staging Failed - ${JOB_NAME}",
+                              body: "Integration Tests on Staging failed! See build logs for details.",
+                              attachLog: "${currentBuild.rawBuild.logFilePath}",
+                              to: "davidochuks@gmail.com"
                 }
-            }
             }
         }
         stage('Deploy to Production') {
             steps {
                 script {
-                    echo 'Deploying application to production environment  AWS EC2.'
+                    echo 'Deploying application to production environment AWS EC2.'
                 }
             }
         }
