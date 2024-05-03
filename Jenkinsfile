@@ -29,7 +29,7 @@ pipeline {
                                 to: 'davidochuks@gmail.com'
                 }
                 failure {
-                    emailext subject: 'Unit & Integration Tests Failed - $JOB_NAME', 
+                    emailext subject: 'Unit & Integration Tests Failed.. - $JOB_NAME', 
                                 body: 'Unit & Integration Tests failed! See build logs for details. $BUILD_LOG',
                                 attachLog: true,  // if getLogFile() provides the path
                                // attachment: 'build.log',  // Replace with actual log file path
