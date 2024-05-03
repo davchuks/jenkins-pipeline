@@ -18,7 +18,6 @@ pipeline {
                 script {
                     echo 'Running unit tests with JUnit  and integration tests with Selenium .'
                     echo "Example: sh 'mvn test'"
-
                     echo "Running integration tests with Selenium ."
                 }
             }
@@ -26,13 +25,13 @@ pipeline {
                 success {
                     emailext subject: 'Unit & Integration Tests Success - $JOB_NAME', 
                                 body: 'Unit & Integration Tests completed successfully!See build logs for details.',
-                                //attachLog: "${currentBuild.rawBuild.logFilePath}",  // if getLogFile() provides the path
+                                attachLog: true,  // if getLogFile() provides the path
                                 to: 'davidochuks@gmail.com'
                 }
                 failure {
                     emailext subject: 'Unit & Integration Tests Failed - $JOB_NAME', 
                                 body: 'Unit & Integration Tests failed! See build logs for details. $BUILD_LOG',
-                              //  attachLog: "${currentBuild.rawBuild.logFilePath}",  // if getLogFile() provides the path
+                                attachLog: true,  // if getLogFile() provides the path
                                // attachment: 'build.log',  // Replace with actual log file path
                                 to: 'davidochuks@gmail.com'
                 }
@@ -55,13 +54,13 @@ pipeline {
                 success {
                     emailext subject: 'Security Scan Success - $JOB_NAME', 
                                 body: 'Security scan completed successfully!See build logs for details.', 
-                              //  attachLog: "${currentBuild.rawBuild.logFilePath}",  // Replace with actual log file path
+                              attachLog: true,  // Replace with actual log file path
                                 to: 'davidochuks@gmail.com'
                 }
                 failure {
                     emailext subject: 'Security Scan Failed - $JOB_NAME', 
                                 body: 'Security scan failed! See build logs for details.', 
-                             //   attachLog: "${currentBuild.rawBuild.logFilePath}",  // Replace with actual log file path
+                             attachLog: true,  // Replace with actual log file path
                                 to: 'davidochuks@gmail.com'
                 }
             }
@@ -83,12 +82,13 @@ pipeline {
                 success {
                     emailext subject: "Integration Tests on Staging Success - ${JOB_NAME}",
                               body: "Integration Tests on Staging completed successfully! See build logs for details.",
+                              attachLog: true"
                               to: "davidochuks@gmail.com"
                 }
                 failure {
                     emailext subject: "Integration Tests on Staging Failed - ${JOB_NAME}",
                               body: "Integration Tests on Staging failed! See build logs for details.",
-                              attachLog: "${currentBuild.rawBuild.logFilePath}",
+                              attachLog: true",
                               to: "davidochuks@gmail.com"
                 }
             }
